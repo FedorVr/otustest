@@ -14,8 +14,10 @@ use App\Interface\DTO\StudentResponse;
 use App\Interface\Exception\ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/students', methods: ['POST'])]
 final class CreateAction extends ApiController
 {

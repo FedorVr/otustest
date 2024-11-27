@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\PersonName;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'students')]
+// API-platform
+#[ApiResource]
 class Student extends User
 {
     #[ORM\ManyToMany(targetEntity: Group::class, inversedBy: 'students')]

@@ -12,8 +12,10 @@ use App\Interface\Exception\ApiException;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/groups', methods: ['GET'])]
 final class ListAction extends ApiController
 {

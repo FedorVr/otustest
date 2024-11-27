@@ -13,8 +13,10 @@ use App\Interface\DTO\ListResponse;
 use App\Interface\Exception\ApiException;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/students/{id}/suitable-groups', methods: ['GET'])]
 final class FindSuitableGroupAction extends ApiController
 {

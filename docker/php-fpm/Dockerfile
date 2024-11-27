@@ -11,7 +11,7 @@ RUN apk add --no-cache \
     $PHPIZE_DEPS
 
 # Установить PHP-расширения
-RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install pdo_pgsql sockets
 
 # Установить PECL-расширения
 RUN pecl install xdebug xhprof amqp && \

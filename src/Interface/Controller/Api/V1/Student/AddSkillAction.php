@@ -13,9 +13,11 @@ use App\Interface\DTO\StudentResponse;
 use App\Interface\DTO\UpdateSkillProficiencyRequest;
 use App\Interface\Exception\ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/students/{id}/skills', methods: ['POST'])]
 final class AddSkillAction extends ApiController
 {

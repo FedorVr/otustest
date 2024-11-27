@@ -14,9 +14,11 @@ use App\Interface\DTO\TeacherResponse;
 use App\Interface\DTO\UpdateTeacherRequest;
 use App\Interface\Exception\ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/teachers/{id}', methods: ['PUT'])]
 final class UpdateAction extends ApiController
 {

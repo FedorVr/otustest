@@ -12,8 +12,10 @@ use App\Interface\Controller\Api\V1\ApiController;
 use App\Interface\DTO\GroupResponse;
 use App\Interface\Exception\ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/groups/{id}/students/{student_id}', methods: ['DELETE'])]
 final class RemoveStudentAction extends ApiController
 {

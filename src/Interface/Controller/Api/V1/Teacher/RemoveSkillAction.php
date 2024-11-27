@@ -11,8 +11,10 @@ use App\Interface\DTO\TeacherResponse;
 use App\Interface\Exception\ApiException;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/teachers/{id}/skills/{skillId}', methods: ['DELETE'])]
 final class RemoveSkillAction extends ApiController
 {

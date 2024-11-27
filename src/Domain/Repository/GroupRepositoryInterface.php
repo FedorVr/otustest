@@ -47,4 +47,6 @@ interface GroupRepositoryInterface
      * @return array<Group>
      */
     public function findBy(array $criteria, array $orderBy = null, ?int $limit = null, ?int $offset = null): array;
+
+    public function isGroupFull(Group $group): bool;
 }

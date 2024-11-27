@@ -13,9 +13,11 @@ use App\Interface\DTO\UpdateSkillProficiencyRequest;
 use App\Interface\Exception\ApiException;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/groups/{id}/skills', methods: ['POST'])]
 final class AddSkillAction extends ApiController
 {

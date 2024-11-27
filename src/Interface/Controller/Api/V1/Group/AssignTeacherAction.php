@@ -12,8 +12,10 @@ use App\Interface\DTO\GroupResponse;
 use App\Interface\Exception\ApiException;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/groups/{id}/teacher/{teacher_id}', methods: ['PUT'])]
 final class AssignTeacherAction extends ApiController
 {

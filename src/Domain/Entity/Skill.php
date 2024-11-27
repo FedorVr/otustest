@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Index(name: 'skills__name__idx', columns: ['name'])]
 #[ORM\Index(name: 'skills__name__idx', columns: ['name'])]
 #[ORM\UniqueConstraint(name: 'skills__name__uq', columns: ['name'])]
+// API-platform
+#[ApiResource]
 class Skill
 {
     #[ORM\Id]

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
 use App\Domain\ValueObject\Email;
 use App\Domain\ValueObject\PersonName;
 use Doctrine\DBAL\Types\Types;
@@ -19,6 +23,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Index(name: 'users__name__idx', columns: ['first_name', 'last_name'])]
 #[ORM\Index(name: 'users__type__idx', columns: ['type'])]
 #[ORM\HasLifecycleCallbacks]
+// API-platform
+#[ApiResource]
+#[ApiFilter(SearchFilter::class, properties: ['email' => 'partial'])]
+#[ApiFilter(OrderFilter::class, properties: ['id' => 'DESC'])]
 abstract class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

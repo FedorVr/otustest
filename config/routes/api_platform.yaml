@@ -3,3 +3,6 @@ api_platform:
     type: api_platform
     prefix: /api-platform
 
+api_graphql_entrypoint:
+    path: /api-platform/graphql
+    controller: api_platform.graphql.action.entrypoint

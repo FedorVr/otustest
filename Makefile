@@ -12,3 +12,9 @@ sh:
 
 ps:
 	docker compose ps
+
+dbc:
+	docker exec otus-postgresql-1 psql -U user -d skill-mentor-service
+
+rml:
+	rm -rf ./var/log/*

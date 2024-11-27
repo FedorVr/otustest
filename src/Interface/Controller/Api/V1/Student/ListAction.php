@@ -12,9 +12,11 @@ use App\Interface\DTO\StudentFilterRequest;
 use App\Interface\DTO\StudentResponse;
 use App\Interface\Exception\ApiException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/students', methods: ['GET'])]
 final class ListAction extends ApiController
 {

@@ -90,4 +90,10 @@ interface StudentServiceInterface
      * @see StudentService::updateSkillLevel()
      */
     public function updateSkillLevel(Student $student, Skill $skill, ProficiencyLevel $level): void;
+
+    /**
+     * Deletes a student.
+     * @see StudentService::delete()
+     */
+    public function delete(Student $student): void;
 }

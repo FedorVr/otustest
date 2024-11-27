@@ -72,4 +72,9 @@ class GroupRepository extends AbstractBaseRepository implements GroupRepositoryI
     {
         return parent::findBy($criteria, $orderBy, $limit, $offset);
     }
+
+    public function isGroupFull(Group $group): bool
+    {
+        return count($group->getStudents()) >= $group->getMaxStudents();
+    }
 }

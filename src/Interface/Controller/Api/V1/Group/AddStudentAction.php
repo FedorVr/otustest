@@ -13,8 +13,10 @@ use App\Interface\Exception\ApiException;
 use DomainException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[AsController]
 #[Route('/v1/groups/{id}/students/{student_id}', methods: ['POST'])]
 final class AddStudentAction extends ApiController
 {

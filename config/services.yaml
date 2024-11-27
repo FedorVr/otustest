@@ -26,6 +26,9 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postGenerateSchema }
 
+    # Name Converter
+    Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter: ~
+
     # Репозитории
     App\Infrastructure\Repository\Doctrine\GroupRepository:
         arguments:

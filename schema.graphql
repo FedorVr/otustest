@@ -1,0 +1,744 @@
+type Query {
+  node(id: ID!): Node
+  groupStats(id: ID!): Stats
+  collectionGroupStats(
+    "Filter groups with available slots"
+    has_available_slots: Boolean
+
+    "Number of items to return"
+    first: Int
+
+    "Offset from which to start returning items"
+    offset: Int
+  ): StatsCursorConnection
+  statisticsGroupStatisticsGroupStatistics(id: ID!): GroupStatistics
+  skills(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+  ): SkillCursorConnection
+  skill(id: ID!): Skill
+  skillProficiencies(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+  ): SkillProficiencyCursorConnection
+  skillProficiency(id: ID!): SkillProficiency
+  students(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+
+    email: String
+    order: [StudentFilter_order]
+  ): StudentCursorConnection
+  student(id: ID!): Student
+  teachers(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+
+    email: String
+    order: [TeacherFilter_order]
+  ): TeacherCursorConnection
+  teacher(id: ID!): Teacher
+  users(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+
+    email: String
+    order: [UserFilter_order]
+  ): UserCursorConnection
+  user(id: ID!): User
+}
+
+"A node, according to the Relay specification."
+interface Node {
+  "The id of this node."
+  id: ID!
+}
+
+type Stats implements Node {
+  id: ID!
+  _id: Int!
+  name: String!
+  students_count: Int
+  capacity_percentage: Float
+  available_slots: Int
+  teacher_name: String
+  at_capacity: Boolean
+}
+
+"Cursor connection for Stats."
+type StatsCursorConnection {
+  edges: [StatsEdge]
+  pageInfo: StatsPageInfo!
+  totalCount: Int!
+}
+
+"Edge of Stats."
+type StatsEdge {
+  node: Stats
+  cursor: String!
+}
+
+"Information about the current page."
+type StatsPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type GroupStatistics implements Node {
+  id: ID!
+  group_id: Int!
+  group_name: String!
+  student_count: Int!
+  min_students: Int!
+  max_students: Int!
+  teacher_name: String!
+}
+
+"Cursor connection for Skill."
+type SkillCursorConnection {
+  edges: [SkillEdge]
+  pageInfo: SkillPageInfo!
+  totalCount: Int!
+}
+
+"Edge of Skill."
+type SkillEdge {
+  node: Skill
+  cursor: String!
+}
+
+type Skill implements Node {
+  id: ID!
+  _id: Int!
+  name: String!
+  description: String
+}
+
+"Information about the current page."
+type SkillPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"Cursor connection for SkillProficiency."
+type SkillProficiencyCursorConnection {
+  edges: [SkillProficiencyEdge]
+  pageInfo: SkillProficiencyPageInfo!
+  totalCount: Int!
+}
+
+"Edge of SkillProficiency."
+type SkillProficiencyEdge {
+  node: SkillProficiency
+  cursor: String!
+}
+
+type SkillProficiency implements Node {
+  id: ID!
+  _id: Int!
+  skill: Skill!
+  teacher: Teacher
+  student: Student
+  group: Group
+  level: Int!
+}
+
+type Teacher implements Node {
+  id: ID!
+  teaching_groups(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+
+    teacher_first_name: String
+    teacher_last_name: String
+  ): GroupCursorConnection
+  skills(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+  ): SkillProficiencyCursorConnection
+  max_groups: Int!
+  roles: Iterable!
+  password: String!
+  _id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+  full_name: String!
+  user_identifier: String!
+}
+
+"Cursor connection for Group."
+type GroupCursorConnection {
+  edges: [GroupEdge]
+  pageInfo: GroupPageInfo!
+  totalCount: Int!
+}
+
+"Edge of Group."
+type GroupEdge {
+  node: Group
+  cursor: String!
+}
+
+type Group implements Node {
+  id: ID!
+  _id: Int!
+  name: String!
+  teacher: Teacher!
+  students(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+
+    email: String
+    order: [StudentFilter_order]
+  ): StudentCursorConnection
+  skills(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+  ): SkillProficiencyCursorConnection
+  min_students: Int!
+  max_students: Int!
+  capacity: Int!
+  required_skills(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+  ): SkillProficiencyCursorConnection
+  remaining_capacity: Int!
+  minimum_students: Boolean!
+  students_count: Int!
+}
+
+input StudentFilter_order {
+  id: String
+}
+
+"Cursor connection for Student."
+type StudentCursorConnection {
+  edges: [StudentEdge]
+  pageInfo: StudentPageInfo!
+  totalCount: Int!
+}
+
+"Edge of Student."
+type StudentEdge {
+  node: Student
+  cursor: String!
+}
+
+type Student implements Node {
+  id: ID!
+  groups(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+
+    teacher_first_name: String
+    teacher_last_name: String
+  ): GroupCursorConnection
+  skills(
+    "Returns the first n elements from the list."
+    first: Int
+
+    "Returns the last n elements from the list."
+    last: Int
+
+    "Returns the elements in the list that come before the specified cursor."
+    before: String
+
+    "Returns the elements in the list that come after the specified cursor."
+    after: String
+  ): SkillProficiencyCursorConnection
+  roles: Iterable!
+  password: String!
+  _id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+  full_name: String!
+  user_identifier: String!
+}
+
+"The `Iterable` scalar type represents an array or a Traversable with any kind of data."
+scalar Iterable
+
+"Information about the current page."
+type StudentPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"Information about the current page."
+type GroupPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+"Information about the current page."
+type SkillProficiencyPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+input TeacherFilter_order {
+  id: String
+}
+
+"Cursor connection for Teacher."
+type TeacherCursorConnection {
+  edges: [TeacherEdge]
+  pageInfo: TeacherPageInfo!
+  totalCount: Int!
+}
+
+"Edge of Teacher."
+type TeacherEdge {
+  node: Teacher
+  cursor: String!
+}
+
+"Information about the current page."
+type TeacherPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+input UserFilter_order {
+  id: String
+}
+
+"Cursor connection for User."
+type UserCursorConnection {
+  edges: [UserEdge]
+  pageInfo: UserPageInfo!
+  totalCount: Int!
+}
+
+"Edge of User."
+type UserEdge {
+  node: User
+  cursor: String!
+}
+
+type User implements Node {
+  id: ID!
+  _id: Int!
+  first_name: String!
+  last_name: String!
+  email: String!
+  roles: Iterable!
+  password: String!
+  full_name: String!
+  user_identifier: String!
+}
+
+"Information about the current page."
+type UserPageInfo {
+  endCursor: String
+  startCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type Mutation {
+  "UpdateNames a Group."
+  updateNameGroup(input: updateNameGroupInput!): updateNameGroupPayload
+
+  "Updates a Skill."
+  updateSkill(input: updateSkillInput!): updateSkillPayload
+
+  "Deletes a Skill."
+  deleteSkill(input: deleteSkillInput!): deleteSkillPayload
+
+  "Creates a Skill."
+  createSkill(input: createSkillInput!): createSkillPayload
+
+  "Updates a SkillProficiency."
+  updateSkillProficiency(input: updateSkillProficiencyInput!): updateSkillProficiencyPayload
+
+  "Deletes a SkillProficiency."
+  deleteSkillProficiency(input: deleteSkillProficiencyInput!): deleteSkillProficiencyPayload
+
+  "Creates a SkillProficiency."
+  createSkillProficiency(input: createSkillProficiencyInput!): createSkillProficiencyPayload
+
+  "Updates a Student."
+  updateStudent(input: updateStudentInput!): updateStudentPayload
+
+  "Deletes a Student."
+  deleteStudent(input: deleteStudentInput!): deleteStudentPayload
+
+  "Creates a Student."
+  createStudent(input: createStudentInput!): createStudentPayload
+
+  "Updates a Teacher."
+  updateTeacher(input: updateTeacherInput!): updateTeacherPayload
+
+  "Deletes a Teacher."
+  deleteTeacher(input: deleteTeacherInput!): deleteTeacherPayload
+
+  "Creates a Teacher."
+  createTeacher(input: createTeacherInput!): createTeacherPayload
+
+  "Updates a User."
+  updateUser(input: updateUserInput!): updateUserPayload
+
+  "Deletes a User."
+  deleteUser(input: deleteUserInput!): deleteUserPayload
+
+  "Creates a User."
+  createUser(input: createUserInput!): createUserPayload
+}
+
+"UpdateNames a Group."
+input updateNameGroupInput {
+  "The ID of the teacher."
+  id: ID!
+
+  "The new name of the teacher."
+  name: String!
+  clientMutationId: String
+}
+
+"UpdateNames a Group."
+type updateNameGroupPayload {
+  group: Group
+  clientMutationId: String
+}
+
+"Updates a Skill."
+input updateSkillInput {
+  id: ID!
+  name: String
+  description: String
+  clientMutationId: String
+}
+
+"Updates a Skill."
+type updateSkillPayload {
+  skill: Skill
+  clientMutationId: String
+}
+
+"Deletes a Skill."
+input deleteSkillInput {
+  id: ID!
+  clientMutationId: String
+}
+
+"Deletes a Skill."
+type deleteSkillPayload {
+  skill: Skill
+  clientMutationId: String
+}
+
+"Creates a Skill."
+input createSkillInput {
+  name: String!
+  description: String
+  clientMutationId: String
+}
+
+"Creates a Skill."
+type createSkillPayload {
+  skill: Skill
+  clientMutationId: String
+}
+
+"Updates a SkillProficiency."
+input updateSkillProficiencyInput {
+  id: ID!
+  skill: String
+  teacher: String
+  student: String
+  group: String
+  level: Int
+  clientMutationId: String
+}
+
+"Updates a SkillProficiency."
+type updateSkillProficiencyPayload {
+  skillProficiency: SkillProficiency
+  clientMutationId: String
+}
+
+"Deletes a SkillProficiency."
+input deleteSkillProficiencyInput {
+  id: ID!
+  clientMutationId: String
+}
+
+"Deletes a SkillProficiency."
+type deleteSkillProficiencyPayload {
+  skillProficiency: SkillProficiency
+  clientMutationId: String
+}
+
+"Creates a SkillProficiency."
+input createSkillProficiencyInput {
+  skill: String!
+  teacher: String
+  student: String
+  group: String
+  level: Int!
+  clientMutationId: String
+}
+
+"Creates a SkillProficiency."
+type createSkillProficiencyPayload {
+  skillProficiency: SkillProficiency
+  clientMutationId: String
+}
+
+"Updates a Student."
+input updateStudentInput {
+  id: ID!
+  groups: [String]
+  skills: [String]
+  roles: Iterable
+  password: String
+  first_name: String
+  last_name: String
+  email: String
+  clientMutationId: String
+}
+
+"Updates a Student."
+type updateStudentPayload {
+  student: Student
+  clientMutationId: String
+}
+
+"Deletes a Student."
+input deleteStudentInput {
+  id: ID!
+  clientMutationId: String
+}
+
+"Deletes a Student."
+type deleteStudentPayload {
+  student: Student
+  clientMutationId: String
+}
+
+"Creates a Student."
+input createStudentInput {
+  groups: [String]
+  skills: [String]
+  roles: Iterable!
+  password: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  clientMutationId: String
+}
+
+"Creates a Student."
+type createStudentPayload {
+  student: Student
+  clientMutationId: String
+}
+
+"Updates a Teacher."
+input updateTeacherInput {
+  id: ID!
+  skills: [String]
+  max_groups: Int
+  roles: Iterable
+  password: String
+  first_name: String
+  last_name: String
+  email: String
+  clientMutationId: String
+}
+
+"Updates a Teacher."
+type updateTeacherPayload {
+  teacher: Teacher
+  clientMutationId: String
+}
+
+"Deletes a Teacher."
+input deleteTeacherInput {
+  id: ID!
+  clientMutationId: String
+}
+
+"Deletes a Teacher."
+type deleteTeacherPayload {
+  teacher: Teacher
+  clientMutationId: String
+}
+
+"Creates a Teacher."
+input createTeacherInput {
+  skills: [String]
+  max_groups: Int!
+  roles: Iterable!
+  password: String!
+  first_name: String!
+  last_name: String!
+  email: String!
+  clientMutationId: String
+}
+
+"Creates a Teacher."
+type createTeacherPayload {
+  teacher: Teacher
+  clientMutationId: String
+}
+
+"Updates a User."
+input updateUserInput {
+  id: ID!
+  first_name: String
+  last_name: String
+  email: String
+  roles: Iterable
+  password: String
+  clientMutationId: String
+}
+
+"Updates a User."
+type updateUserPayload {
+  user: User
+  clientMutationId: String
+}
+
+"Deletes a User."
+input deleteUserInput {
+  id: ID!
+  clientMutationId: String
+}
+
+"Deletes a User."
+type deleteUserPayload {
+  user: User
+  clientMutationId: String
+}
+
+"Creates a User."
+input createUserInput {
+  first_name: String!
+  last_name: String!
+  email: String!
+  roles: Iterable!
+  password: String!
+  clientMutationId: String
+}
+
+"Creates a User."
+type createUserPayload {
+  user: User
+  clientMutationId: String
+}
+
